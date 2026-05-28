@@ -446,7 +446,7 @@ dependencies = [
 
 [[package]]
 name = "dtop"
-version = "0.1.0"
+version = "3.0.1"
 dependencies = [
  "clap",
  "crossterm",

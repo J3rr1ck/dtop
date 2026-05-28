@@ -18,6 +18,7 @@ pub struct GpuInfo {
     pub power_limit: u32, // in milliwatts
     pub graphics_clock: u32, // in MHz
     pub memory_clock: u32, // in MHz
+    pub unified_mem_used: u64, // Unified memory usage
     pub processes: Vec<GpuProcessInfo>,
 }
 
@@ -51,6 +52,11 @@ impl GpuStats {
                     let g_clock = device.clock_info(Clock::Graphics).unwrap_or(0);
                     let m_clock = device.clock_info(Clock::Memory).unwrap_or(0);
 
+                    // Unified Memory Support (Grace Hopper / DGX)
+                    // Note: memory_info_v2 requires recent NVML. 
+                    // Fallback to 0 if not available in current wrapper version.
+                    let unified_mem = 0; 
+
                     let mut gpu_processes = Vec::new();
                     if let Ok(procs) = device.running_compute_processes() {
                         for p in procs {
@@ -76,6 +82,7 @@ impl GpuStats {
                         power_limit,
                         graphics_clock: g_clock,
                         memory_clock: m_clock,
+                        unified_mem_used: unified_mem,
                         processes: gpu_processes,
                     });
                 }

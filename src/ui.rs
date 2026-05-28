@@ -133,11 +133,13 @@ fn draw_gpu_dashboard(f: &mut Frame, app: &App, area: Rect) {
 
     let gpu = &gpus[app.selected_gpu];
     let mem_percent = if gpu.mem_total == 0 { 0 } else { (gpu.mem_used * 100 / gpu.mem_total) as u16 };
+    let unified_gb = gpu.unified_mem_used as f64 / 1e9;
+    
     let text = format!(
-        "Model: {}\nClocks: G: {} MHz | M: {} MHz\nTemp: {}°C | Fan: {}% | Power: {:.1}W / {:.1}W\nLoad: {}% | Memory: {:.2} / {:.2} GB ({}%)",
+        "Model: {}\nClocks: G: {} MHz | M: {} MHz\nTemp: {}°C | Fan: {}% | Power: {:.1}W / {:.1}W\nLoad: {}% | Memory: {:.2} / {:.2} GB ({}%) | Unified: {:.2} GB",
         gpu.name, gpu.graphics_clock, gpu.memory_clock, gpu.temp, gpu.fan_speed,
         gpu.power_usage as f64 / 1000.0, gpu.power_limit as f64 / 1000.0,
-        gpu.load, gpu.mem_used as f64 / 1e9, gpu.mem_total as f64 / 1e9, mem_percent
+        gpu.load, gpu.mem_used as f64 / 1e9, gpu.mem_total as f64 / 1e9, mem_percent, unified_gb
     );
     f.render_widget(Paragraph::new(text).style(Style::default().fg(theme.text)).block(Block::default().borders(Borders::ALL).border_style(Style::default().fg(theme.border)).title(Span::styled(format!("GPU {} Status", app.selected_gpu), Style::default().fg(theme.title)))), chunks[1]);
 
