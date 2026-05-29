@@ -1,7 +1,7 @@
 # Maintainer: Jerrick <jerrick@example.com>
 pkgname=danger-monitor
-pkgver=3.0.1
-pkgrel=3
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="A high-performance system and GPU monitor (danmon) with high-res charts and themes"
 arch=('x86_64')
 url="https://github.com/J3rr1ck/danger-monitor"
@@ -9,7 +9,7 @@ license=('MIT')
 depends=('gcc-libs' 'nvidia-utils')
 makedepends=('rust' 'cargo')
 source=("danger-monitor-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('720d8917302b9107513446f9e5b82da1380c4dd04631511d91b83efc97870476')
+sha256sums=('7ec6c21bc25b56187ed572d83f0db54e558e8699cdb04d1d4b9900b29e0357f7')
 
 prepare() {
     cd "$pkgname-$pkgver"
