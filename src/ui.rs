@@ -22,7 +22,7 @@ pub fn draw(f: &mut Frame, app: &App) {
         .split(f.area());
 
     // Header
-    let header_text = format!(" dtop | 'q': quit | 'g'/'Tab': next GPU | 't': themes | Theme: {} ", theme.name);
+    let header_text = format!(" danmon | 'q': quit | 'g'/'Tab': next GPU | 't': themes | Theme: {} ", theme.name);
     let header = Paragraph::new(Span::styled(
         header_text,
         Style::default().fg(Color::Black).bg(theme.title).add_modifier(Modifier::BOLD),

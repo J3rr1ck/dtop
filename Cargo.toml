@@ -1,5 +1,5 @@
 [package]
-name = "dtop"
+name = "danger-monitor"
 version = "3.0.1"
 edition = "2024"
 

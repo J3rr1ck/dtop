@@ -320,6 +320,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "danger-monitor"
+version = "3.0.1"
+dependencies = [
+ "clap",
+ "crossterm",
+ "nvml-wrapper",
+ "ratatui",
+ "sysinfo",
+]
+
+[[package]]
 name = "darling"
 version = "0.20.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -442,17 +453,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d4b8a88685455ed29a21542a33abd9cb6510b6b129abadabdcef0f4c55bc8f61"
 dependencies = [
  "litrs",
-]
-
-[[package]]
-name = "dtop"
-version = "3.0.1"
-dependencies = [
- "clap",
- "crossterm",
- "nvml-wrapper",
- "ratatui",
- "sysinfo",
 ]
 
 [[package]]
