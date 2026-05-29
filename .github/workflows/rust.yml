@@ -1,12 +1,15 @@
-name: Weekly Build
+name: Weekly Build & Release
 
 on:
   schedule:
     - cron: '0 0 * * 0' # Every Sunday at midnight
   push:
     branches: [ master ]
+    tags:
+      - 'v*' # Trigger on version tags
   pull_request:
     branches: [ master ]
+  workflow_dispatch: # Allow manual trigger
 
 env:
   CARGO_TERM_COLOR: always
@@ -14,6 +17,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v4
@@ -32,3 +37,21 @@ jobs:
     
     - name: Run tests
       run: cargo test --verbose
+
+    - name: Package Binary
+      if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+      run: |
+        cd target/release
+        tar -czvf dtop-linux-x86_64.tar.gz dtop
+        sha256sum dtop-linux-x86_64.tar.gz > dtop-linux-x86_64.sha256
+
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          target/release/dtop-linux-x86_64.tar.gz
+          target/release/dtop-linux-x86_64.sha256
+        draft: false
+        prerelease: false
+        generate_release_notes: true
